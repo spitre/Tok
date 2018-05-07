@@ -9,10 +9,9 @@ public class PlayerKill : MonoBehaviour {
         player = GameObject.Find("Character");
     }
     void OnTriggerEnter (Collider other) {
-        if (!other.CompareTag("Floor"))
+        if (!other.CompareTag("Floor")&&!other.CompareTag("Bullet"))
         {
-            player.GetComponent<EnemySpawnLevel1>().alive=false;
-            player.GetComponent<EnemySpawnLevel1>().spawncount = 0;
+            player.GetComponent<EnemySpawn>().alive = false;
             Destroy(other.gameObject);
         }
 		

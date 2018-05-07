@@ -33,7 +33,7 @@ public class SpawnController : MonoBehaviour
     {
         angle = Get_angle();
         vec1 = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        vec2 = Quaternion.AngleAxis(angle, Vector3.up) * vec0;
+        vec2 = Quaternion.AngleAxis(angle-90, Vector3.up) * vec0;
         dir = vec2 - vec1;
         if (dir != null)
         {

@@ -7,6 +7,7 @@ public class EnemySpawnLevel1 : MonoBehaviour {
     public GameObject enemy2;
     public GameObject enemy3;
     public GameObject enemy4;
+    public int killcount=0;
 
     GameObject enemy;
     Vector3 position;
@@ -17,11 +18,9 @@ public class EnemySpawnLevel1 : MonoBehaviour {
     int positionindex;
     int enemyindex;
 
-    float spawnRate = 4.0f;
-    float nextSpawn = 0.0f;
-    public bool alive =false;
-    public float killtime;
-    public int spawncount = 0;
+    public bool alive = false;
+    int framecount = 0;
+
 	void Start () {
         positionArray[0] = new Vector3(-4.5f, 1.15f, -4.5f);
         positionArray[1] = new Vector3(4.5f, 1.15f, -4.5f);
@@ -39,18 +38,23 @@ public class EnemySpawnLevel1 : MonoBehaviour {
 	void Update () {
 		if(!alive)
         {
+            framecount += 1;
+            if (framecount >= 10)
+            {
                 Spawn();
+            }
+        }
+        else
+        {
+            framecount = 0; 
         }
 	}
-    void Spawn()
+   public void Spawn()
     {
-        if (spawncount < 2)
-        {
             positionindex = Random.Range(0, 4);
             enemyindex = Random.Range(0, 4);
             var enemy = Instantiate(enemyArray[enemyindex], positionArray[positionindex], enemyArray[enemyindex].transform.rotation);
             alive = true;
-            spawncount += 1;
-        }
+            killcount += 1;
     }
 }

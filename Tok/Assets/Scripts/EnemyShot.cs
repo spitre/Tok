@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyShot : MonoBehaviour {
     public GameObject enemybullet;
-    public float speed = 10;
+    public float speed = 3;
     Vector3 ShotDirection;
-    float fireRate = 1.5f;
+    public float fireRate = 1.5f;
     float nextFire = 2.0f;
     float pauseFire = 1.5f;
     float starttime;
@@ -19,7 +19,7 @@ public class EnemyShot : MonoBehaviour {
         {
             if ((Time.time-starttime) > nextFire)
             {
-                nextFire = Time.time + fireRate;
+                nextFire = (Time.time-starttime) + fireRate;
                 Fire();
             }
         }
