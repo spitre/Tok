@@ -40,6 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4807879386772078}
   - component: {fileID: 114901680102139032}
+  - component: {fileID: 54734449535313690}
   m_Layer: 0
   m_Name: bulletSpawn
   m_TagString: Untagged
@@ -130,6 +131,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!54 &54734449535313690
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1806676524772736}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: Infinity
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 90
+  m_CollisionDetection: 0
 --- !u!114 &114206670061298250
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -152,6 +168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4678dc81763ce943ab48f0897b55044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpspeed: 6
+  gravity: 11
 --- !u!135 &135245459406992952
 SphereCollider:
   m_ObjectHideFlags: 1

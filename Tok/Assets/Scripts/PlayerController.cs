@@ -16,11 +16,7 @@ public class PlayerController : MonoBehaviour {
     
     bool jump=false;
    
-    
-    private void Awake()
-    {
-    }
-    // Update is called once per frame
+   
     void Update()
     {
         Movement();

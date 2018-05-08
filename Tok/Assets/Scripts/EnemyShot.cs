@@ -8,7 +8,7 @@ public class EnemyShot : MonoBehaviour {
     Vector3 ShotDirection;
     public float fireRate = 1.5f;
     float nextFire = 2.0f;
-    float pauseFire = 1.5f;
+    float pauseFire = 0.8f;
     float starttime;
     void Awake()
     {

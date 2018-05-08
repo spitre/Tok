@@ -12,8 +12,15 @@ public class PlayerKill : MonoBehaviour {
         if (!other.CompareTag("Floor")&&!other.CompareTag("Bullet"))
         {
             player.GetComponent<EnemySpawn>().alive = false;
-            Destroy(other.gameObject);
+            if (other.CompareTag("2Enemy"))
+            {
+                Destroy(other.transform.parent.gameObject);
+                Destroy(other.gameObject);
+            }
+            else
+            {
+                Destroy(other.gameObject);
+            }
         }
-		
 	}
 }

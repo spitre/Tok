@@ -7,6 +7,7 @@ TagManager:
   - Image
   - Floor
   - Bullet
+  - 2Enemy
   layers:
   - Default
   - TransparentFX

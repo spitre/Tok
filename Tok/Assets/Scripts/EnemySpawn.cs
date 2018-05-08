@@ -16,7 +16,7 @@ public class EnemySpawn : MonoBehaviour {
     public int killcount = 0;
     public int Level = 1;
     float breather = 5.0f;
-    bool levelend = false;
+    public bool levelend = false;
     float starttime;
 
     int positionindex;

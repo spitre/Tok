@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 33416616090914594}
   - component: {fileID: 65421423547547160}
   - component: {fileID: 23648382185827960}
-  - component: {fileID: 114165339751765102}
+  - component: {fileID: 114131372763407010}
   m_Layer: 0
   m_Name: Enemy21
   m_TagString: Untagged
@@ -126,7 +126,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114165339751765102
+--- !u!114 &114131372763407010
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -134,13 +134,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1465244264299850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cb8e0c63fa222e479d142159b37a15d, type: 3}
+  m_Script: {fileID: 11500000, guid: ff541180093f6414ab6c63c0c9321155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemybullet: {fileID: 1664453771216624, guid: 863bfadfe118a9749be2a9b5c4846558,
     type: 2}
-  speed: 7
-  fireRate: 1.1
+  speed: 3
+  fireRate: 2
 --- !u!114 &114794546862403542
 MonoBehaviour:
   m_ObjectHideFlags: 1

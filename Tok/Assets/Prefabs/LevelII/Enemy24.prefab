@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114018598018701358}
   m_Layer: 0
   m_Name: EnemyBody
-  m_TagString: Untagged
+  m_TagString: 2Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 33478758890155174}
   - component: {fileID: 65234933396892464}
   - component: {fileID: 23093420700667652}
-  - component: {fileID: 114355257546841266}
+  - component: {fileID: 114908438462793828}
   m_Layer: 0
   m_Name: Enemy24
   m_TagString: Untagged
@@ -223,21 +223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3411043c380ae7345af4857547506135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114355257546841266
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1204716201122240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cb8e0c63fa222e479d142159b37a15d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemybullet: {fileID: 1338822775213354, guid: f846b3bb5849efa45a4d6ced998786a7,
-    type: 2}
-  speed: 4
-  fireRate: 0.5
 --- !u!114 &114470711839069590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -250,3 +235,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+--- !u!114 &114908438462793828
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1204716201122240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 107a0a4223c2db943a10dc5e33710c2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemybullet: {fileID: 1338822775213354, guid: f846b3bb5849efa45a4d6ced998786a7,
+    type: 2}
+  speed: 5
+  fireRate: 1.5
