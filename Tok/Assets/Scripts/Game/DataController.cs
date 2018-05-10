@@ -1,47 +1,73 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DataController : MonoBehaviour {
-    PlayerData playerData = new PlayerData();
-    float[,] prior = new float[4, 3];
-
+    public PlayerData playerData = new PlayerData();
+    string path;
 	void Start () {
+        string path = Application.dataPath + "/StreamingAssets" + "/data.json";
+        ReadFromJson(path);
         DontDestroyOnLoad(gameObject);
         SceneManager.LoadScene("Menu");
-        playerData.Level = 1;
-        playerData.LifeRemaining = 3;
-        playerData.Prior = new float[3, 3];
-
-        prior[0, 0] = .25f;
-        prior[1, 0] = .25f;
-        prior[2, 0] = .25f;
-
-        prior[0, 1] = 1f;
-        prior[1, 1] = 1f;
-        prior[2, 1] = 1f;
-
-        prior[0, 2] = 4f;
-        prior[1, 2] = 4f;
-        prior[2, 2] = 4f;
-        playerData.Prior=prior;
-        LoadtoJson();
-
-	}
-    private void Update()
+    }
+    private void LateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)||playerData.levelend)
         {
-            Application.Quit();
+            string path = Application.dataPath + "/StreamingAssets" + "/data.json";
+            LoadtoJson(path);
+            SceneManager.LoadScene("Menu");
+        }else if (playerData.isDead)
+        {
+            playerData.LifeRemaining = 10;
+            playerData.isDead = false;
+            string path = Application.dataPath + "/StreamingAssets" + "/data.json";
+            LoadtoJson(path);
         }
     }
-    private void LoadtoJson()
+    private void LoadtoJson(string path)
     {
-        string json = JsonUtility.ToJson(playerData);
-        string path = Application.dataPath+"/StreamingAssets" + "/data.json";
-        File.Create(path).Close();
-        File.WriteAllText(path, json);
+
+        if (!File.Exists(path))
+        {
+            playerData.Level = 1;
+            playerData.LifeRemaining = 10;
+            playerData.Resume = false;
+            playerData.isDead = false;
+            playerData.levelend = false;
+            playerData.Prior = new List<DistributionData>();
+            for(int i = 0; i < 8; i++)
+            {
+                playerData.Prior.Add(new DistributionData());
+
+                playerData.Prior[i].mean = .25f;
+                playerData.Prior[i].alpha = 1;
+                playerData.Prior[i].beta = 4;
+            }
+
+
+            string json = JsonUtility.ToJson(playerData);
+            File.Create(path).Close();
+            File.WriteAllText(path, json);
+        }
+        else
+        {
+            string json = JsonUtility.ToJson(playerData);
+            File.WriteAllText(path, json);
+        }
+    }
+    private void ReadFromJson(string path)
+    {
+        if (File.Exists(path))
+        {
+            string dataAsJson = File.ReadAllText(path);
+            playerData = JsonUtility.FromJson<PlayerData>(dataAsJson);
+        }
+        else
+        {
+            LoadtoJson(path);
+        }
     }
 }

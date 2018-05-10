@@ -12,6 +12,8 @@ public class EnemySpawn : MonoBehaviour {
     public GameObject enemy22;
     public GameObject enemy23;
     public GameObject enemy24;
+    public int aliveenemy;
+    private DataController data;
 
     public int killcount = 0;
     public int Level = 1;
@@ -34,6 +36,7 @@ public class EnemySpawn : MonoBehaviour {
 
 
     void Start () {
+        data = FindObjectOfType<DataController>();
         positionArray[0] = new Vector3(-4.5f, 1.15f, -4.5f);
         positionArray[1] = new Vector3(4.5f, 1.15f, -4.5f);
         positionArray[2] = new Vector3(4.5f, 1.15f, 4.5f);
@@ -48,17 +51,31 @@ public class EnemySpawn : MonoBehaviour {
         enemyArray2[1] = enemy22;
         enemyArray2[2] = enemy23;
         enemyArray2[3] = enemy24;
+        if (data.playerData.Resume)
+        {
+            Level = data.playerData.Level;
+        }
+        else
+        {
+            Level = 1;
+        }
 
     }
 	
 	// Update is called once per frame
 	void Update () {
-		if(Level == 1&&!levelend)
+		if(Level == 1&&!levelend&&!Input.GetKeyDown(KeyCode.Escape))
         {
             Spawn1();
-        }else if(Level == 2&&!levelend)
+        }else if(Level == 2&&!levelend&&!Input.GetKeyDown(KeyCode.Escape))
         {
             Spawn2();
+        }else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            data.GetComponent<DataController>().playerData.Level = Level;
+        }else if (GetComponent<playerhealth>().isDead)
+        {
+            data.GetComponent<DataController>().playerData.Level = Level;
         }
         else
         {
@@ -79,9 +96,11 @@ public class EnemySpawn : MonoBehaviour {
                 enemyindex = Random.Range(0, 4);
 
                 var enemy = Instantiate(enemyArray1[enemyindex], positionArray[positionindex], enemyArray1[enemyindex].transform.rotation);
+                GetComponent<PlayerBayesian>().Spawns[enemyindex] += 1;
 
                 alive = true;
                 killcount += 1;
+                aliveenemy = enemyindex;
 
                 if (killcount >= 20)
                 {
@@ -107,10 +126,10 @@ public class EnemySpawn : MonoBehaviour {
                 enemyindex = Random.Range(0, 4);
 
                 var enemy = Instantiate(enemyArray2[enemyindex], positionArray[positionindex], enemyArray2[enemyindex].transform.rotation);
-
+                GetComponent<PlayerBayesian>().Spawns[enemyindex+4] += 1;
                 alive = true;
                 killcount += 1;
-
+                aliveenemy = enemyindex+4;
                 if (killcount >= 40)
                 {
                     Level += 1;

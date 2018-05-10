@@ -5,5 +5,8 @@ using UnityEngine;
 public class PlayerData{
     public int Level;
     public int LifeRemaining;
-    public float[,] Prior;
+    public List<DistributionData> Prior;
+    public bool Resume;
+    public bool isDead;
+    public bool levelend;
 }

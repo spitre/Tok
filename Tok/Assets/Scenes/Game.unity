@@ -1019,6 +1019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerhealthnum: 10
+  isDead: 0
 --- !u!114 &2087070555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1030,8 +1031,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae937af72f59e04f97ec629cf7e2c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Kills: 00000000000000000000000000000000
-  Spawns: 00000000000000000000000000000000
+  Kills: 0000000000000000000000000000000000000000000000000000000000000000
+  Spawns: 0000000000000000000000000000000000000000000000000000000000000000
 --- !u!114 &2087070562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1051,6 +1052,7 @@ MonoBehaviour:
   enemy22: {fileID: 1178611613523818, guid: ca187ffad1c7c9149be9b0d88162f63f, type: 2}
   enemy23: {fileID: 1285629336471568, guid: a7c528b26ebac2a4188b87608b18cd90, type: 2}
   enemy24: {fileID: 1204716201122240, guid: 0e6776c35fa994c4b96b1c635dce3522, type: 2}
+  aliveenemy: 0
   killcount: 0
   Level: 1
   levelend: 0
