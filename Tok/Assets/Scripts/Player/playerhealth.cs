@@ -24,9 +24,9 @@ public class playerhealth : MonoBehaviour {
 	void Update () {
         if (playerhealthnum <= 0)
         {
-           /* isDead = true;
+            isDead = true;
             data.GetComponent<DataController>().playerData.isDead = true;
-            SceneManager.LoadScene("Death");*/
+            SceneManager.LoadScene("Death");
         }else if (Input.GetKeyDown(KeyCode.Escape))
         {
             data.GetComponent<DataController>().playerData.LifeRemaining = playerhealthnum;

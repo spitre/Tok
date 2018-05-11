@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 65421423547547160}
   - component: {fileID: 23648382185827960}
   - component: {fileID: 114131372763407010}
+  - component: {fileID: 114613678629485786}
   m_Layer: 0
   m_Name: Enemy21
   m_TagString: Untagged
@@ -141,6 +142,18 @@ MonoBehaviour:
     type: 2}
   speed: 3
   fireRate: 2
+--- !u!114 &114613678629485786
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1465244264299850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e04171279a8c594290dbb30031a5840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!114 &114794546862403542
 MonoBehaviour:
   m_ObjectHideFlags: 1

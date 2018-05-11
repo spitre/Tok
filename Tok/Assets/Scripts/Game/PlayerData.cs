@@ -8,5 +8,4 @@ public class PlayerData{
     public List<DistributionData> Prior;
     public bool Resume;
     public bool isDead;
-    public bool levelend;
 }

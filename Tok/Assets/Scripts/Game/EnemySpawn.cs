@@ -96,7 +96,7 @@ public class EnemySpawn : MonoBehaviour {
                 enemyindex = Random.Range(0, 4);
 
                 var enemy = Instantiate(enemyArray1[enemyindex], positionArray[positionindex], enemyArray1[enemyindex].transform.rotation);
-                GetComponent<PlayerBayesian>().Spawns[enemyindex] += 1;
+                enemy.GetComponent<EnemyShot>().player = gameObject;
 
                 alive = true;
                 killcount += 1;
@@ -107,6 +107,7 @@ public class EnemySpawn : MonoBehaviour {
                     Level += 1;
                     levelend = true;
                     starttime = Time.time;
+                    data.levelData.levelend = true;
                 }
             }
         }
@@ -126,7 +127,7 @@ public class EnemySpawn : MonoBehaviour {
                 enemyindex = Random.Range(0, 4);
 
                 var enemy = Instantiate(enemyArray2[enemyindex], positionArray[positionindex], enemyArray2[enemyindex].transform.rotation);
-                GetComponent<PlayerBayesian>().Spawns[enemyindex+4] += 1;
+                enemy.GetComponent<Playerinfo>().player = gameObject;
                 alive = true;
                 killcount += 1;
                 aliveenemy = enemyindex+4;
@@ -135,6 +136,7 @@ public class EnemySpawn : MonoBehaviour {
                     Level += 1;
                     levelend = true;
                     starttime = Time.time;
+                    data.levelData.levelend = true;
                 }
             }
         }

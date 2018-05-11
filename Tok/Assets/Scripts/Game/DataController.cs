@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class DataController : MonoBehaviour {
     public PlayerData playerData = new PlayerData();
+    public Leveldata levelData = new Leveldata();
     string path;
 	void Start () {
         string path = Application.dataPath + "/StreamingAssets" + "/data.json";
@@ -14,10 +15,11 @@ public class DataController : MonoBehaviour {
     }
     private void LateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)||playerData.levelend)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             string path = Application.dataPath + "/StreamingAssets" + "/data.json";
             LoadtoJson(path);
+            ReadFromJson(path);
             SceneManager.LoadScene("Menu");
         }else if (playerData.isDead)
         {
@@ -25,6 +27,12 @@ public class DataController : MonoBehaviour {
             playerData.isDead = false;
             string path = Application.dataPath + "/StreamingAssets" + "/data.json";
             LoadtoJson(path);
+            ReadFromJson(path);
+        }else if (levelData.levelend)
+        {
+            string path = Application.dataPath + "/StreamingAssets" + "/data.json";
+            LoadtoJson(path);
+            ReadFromJson(path);
         }
     }
     private void LoadtoJson(string path)
@@ -36,7 +44,6 @@ public class DataController : MonoBehaviour {
             playerData.LifeRemaining = 10;
             playerData.Resume = false;
             playerData.isDead = false;
-            playerData.levelend = false;
             playerData.Prior = new List<DistributionData>();
             for(int i = 0; i < 8; i++)
             {
