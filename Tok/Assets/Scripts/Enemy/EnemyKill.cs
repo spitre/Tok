@@ -24,6 +24,7 @@ public class EnemyKill : MonoBehaviour {
                 {
                     other.GetComponent<ProximityCollider>().aliveenemy[i] = aliveenemy;
                     haswritten = true;
+                    other.GetComponent<ProximityCollider>().index = i;
                     index = i;
                 }
 

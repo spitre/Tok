@@ -2,39 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Probability : MonoBehaviour {
+public class Probability : MonoBehaviour
+{
     public float Prob;
     float temp;
     bool isClose;
-    int [] aliveenemy;
-    bool calculated=false;
-    public  GameObject Capsule;
+    int[] aliveenemy;
+    public int index;
+    bool calculated = false;
+    int holder;
+    public GameObject Capsule;
     DataController data;
-	
+
     void Start()
     {
         data = FindObjectOfType<DataController>();
-        Prob = 1;
+        temp = 0;
+        holder = 0;
     }
-	
-	void Update () {
+
+    void Update()
+    {
         isClose = Capsule.GetComponent<ProximityCollider>().isClose;
         aliveenemy = Capsule.GetComponent<ProximityCollider>().aliveenemy;
-        if (isClose&&!calculated)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                if (aliveenemy[i] != 8)
-                {
-                    temp = temp * (1 - data.playerData.Prior[aliveenemy[i]].mean);
-                }
-            }
-            temp = 1 - temp;
-            calculated = true;
-        }else if (!isClose && calculated)
+        index = Capsule.GetComponent<ProximityCollider>().index;
+        if(holder != index)
         {
             calculated = false;
+            holder = index;
         }
-        Prob = temp;
-	}
+        if (aliveenemy[index] != 8)
+        {
+            if (!calculated)
+            {
+                temp = (1 - temp) * (1 - data.playerData.Prior[aliveenemy[index]].mean);
+                temp = 1 - temp;
+                Prob = temp;
+                calculated = true;
+            }
+        }
+        else
+        {
+            temp = 0;
+            Prob = 0;
+            calculated = false;
+        }
+    }
 }

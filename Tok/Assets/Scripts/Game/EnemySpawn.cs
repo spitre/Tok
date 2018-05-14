@@ -12,14 +12,18 @@ public class EnemySpawn : MonoBehaviour {
     public GameObject enemy22;
     public GameObject enemy23;
     public GameObject enemy24;
+
+    public GameObject Block;
     public int aliveenemy;
     private DataController data;
 
-    public int killcount = 0;
+    public int killcount = 20;
     public int Level = 1;
     float breather = 5.0f;
     public bool levelend = false;
+    public bool placement = false;
     float starttime;
+    public int lifeRemaining = 10;
 
     int positionindex;
     int enemyindex;
@@ -27,6 +31,7 @@ public class EnemySpawn : MonoBehaviour {
     public bool alive = false;
     int framecount = 0;
 
+    GameObject block;
     GameObject enemy;
     Vector3 position;
 
@@ -62,12 +67,16 @@ public class EnemySpawn : MonoBehaviour {
 
     }
 	
-	// Update is called once per frame
+
 	void Update () {
-		if(Level == 1&&!levelend&&!Input.GetKeyDown(KeyCode.Escape))
+        if (placement)
+        {
+            Place();
+        }
+		else if(Level == 1&&!levelend&&!Input.GetKeyDown(KeyCode.Escape)&&!placement)
         {
             Spawn1();
-        }else if(Level == 2&&!levelend&&!Input.GetKeyDown(KeyCode.Escape))
+        }else if(Level == 2&&!levelend&&!Input.GetKeyDown(KeyCode.Escape)&&!placement)
         {
             Spawn2();
         }else if (Input.GetKeyDown(KeyCode.Escape))
@@ -79,6 +88,8 @@ public class EnemySpawn : MonoBehaviour {
         }
         else
         {
+            killcount = 20;
+            lifeRemaining = GetComponent<playerhealth>().playerhealthnum;
             if ((Time.time - starttime) > breather)
             {
                 levelend = false;
@@ -97,12 +108,11 @@ public class EnemySpawn : MonoBehaviour {
 
                 var enemy = Instantiate(enemyArray1[enemyindex], positionArray[positionindex], enemyArray1[enemyindex].transform.rotation);
                 enemy.GetComponent<EnemyShot>().player = gameObject;
-
                 alive = true;
-                killcount += 1;
+                killcount -= 1;
                 aliveenemy = enemyindex;
 
-                if (killcount >= 20)
+                if (killcount < 0)
                 {
                     Level += 1;
                     levelend = true;
@@ -129,9 +139,9 @@ public class EnemySpawn : MonoBehaviour {
                 var enemy = Instantiate(enemyArray2[enemyindex], positionArray[positionindex], enemyArray2[enemyindex].transform.rotation);
                 enemy.GetComponent<Playerinfo>().player = gameObject;
                 alive = true;
-                killcount += 1;
+                killcount -= 1;
                 aliveenemy = enemyindex+4;
-                if (killcount >= 40)
+                if (killcount < 0)
                 {
                     Level += 1;
                     levelend = true;
@@ -144,5 +154,9 @@ public class EnemySpawn : MonoBehaviour {
         {
             framecount = 0;
         }
+    }
+    void Place()
+    {
+        var block = Instantiate(Block, Block.transform.position, Block.transform.rotation);
     }
 }

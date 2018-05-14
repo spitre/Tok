@@ -9,7 +9,7 @@ public class EnemyShot21 : MonoBehaviour {
     public float fireRate = 1.5f;
     float nextFire = 0.0f;
     float starttime;
-    int aliveenemy;
+    public int aliveenemy;
 
     private void Awake()
     {
@@ -32,7 +32,8 @@ public class EnemyShot21 : MonoBehaviour {
         aliveenemy = GetComponent<Playerinfo>().player.GetComponent<EnemySpawn>().aliveenemy;
         GetComponent<Playerinfo>().player.GetComponent<PlayerBayesian>().Spawns[aliveenemy] += 1;
 
+        bullet.GetComponent<EnemyKill>().aliveenemy = aliveenemy;
         bullet.GetComponent<Rigidbody>().velocity = ShotDirection * speed;
-        Destroy(bullet, 3.0f);
+        Destroy(bullet, 5.0f);
     }
 }

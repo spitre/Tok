@@ -11,7 +11,7 @@ public class EnemyShot : MonoBehaviour {
     float nextFire = 2.0f;
     float pauseFire = 0.8f;
     float starttime;
-    int aliveenemy;
+    public int aliveenemy;
     void Awake()
     {
         starttime = Time.time;
