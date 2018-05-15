@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RandomWalk : MonoBehaviour {
     public int[] Shuffled = new int[100];
     int currentpos = 99;
     int nextpos;
 
-    int shot;
+    public int shot;
     int swap;
     public int lifeloss;
     public float Compare;
@@ -35,17 +36,24 @@ public class RandomWalk : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            GetComponent<EnemySpawn>().placement = true;
-            GetComponent<playerhealth>().playerhealthnum = GetComponent<EnemySpawn>().lifeRemaining - lifeloss;
+            SceneManager.LoadScene("Placement1");
+            GetComponent<Level1Spawn>().data.playerData.LifeRemaining -= GetComponent<playerhealth>().playerhealthnum - lifeloss;
             lifeloss = 0;
         }
+        if(GetComponent<Probability>().Prob != 0)
+        {
+            Deduct();
+        }
+	}
+    void Deduct()
+    {
         Compare = Mathf.Round(GetComponent<Probability>().Prob * 100f);
-        if(holder != Compare)
+        if (holder != Compare)
         {
             calculated = false;
             holder = Compare;
         }
-        if (Compare!= 0)
+        if (Compare != 0)
         {
             if (!calculated)
             {
@@ -65,5 +73,5 @@ public class RandomWalk : MonoBehaviour {
         {
             calculated = false;
         }
-	}
+    }
 }

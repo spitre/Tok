@@ -9,6 +9,8 @@ TagManager:
   - Bullet
   - 2Enemy
   - Proximity
+  - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX

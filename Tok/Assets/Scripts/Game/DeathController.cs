@@ -13,7 +13,7 @@ public class DeathController : MonoBehaviour {
     public void ResumeGame()
     {
         data.playerData.Resume = true;
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Level1");
     }
     public void QuitGame()
     {

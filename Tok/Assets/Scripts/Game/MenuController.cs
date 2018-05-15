@@ -13,12 +13,12 @@ public class MenuController : MonoBehaviour {
 
     public void StartGame () {
         data.playerData.Resume = false;
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Placement1");
 	}
     public void ResumeGame()
     {
         data.playerData.Resume = true;
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Placement1");
     }
     public void QuitGame()
     {

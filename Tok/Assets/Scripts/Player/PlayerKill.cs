@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class PlayerKill : MonoBehaviour {
     GameObject player;
+    public bool wall=false;
+    public bool enemykilled = false;
     private void Start()
     {
         player = GameObject.Find("Character");
     }
     void OnTriggerEnter (Collider other) {
-        if (!other.CompareTag("Floor")&&!other.CompareTag("Bullet")&&!other.CompareTag("Proximity"))
+        if (other.CompareTag("Enemy")||other.CompareTag("2Enemy")&&!wall)
         {
-            player.GetComponent<EnemySpawn>().alive = false;
+            player.GetComponent<Level1Spawn>().alive = false;
             if (other.CompareTag("2Enemy"))
             {
                 Destroy(other.transform.parent.gameObject);
@@ -21,6 +23,23 @@ public class PlayerKill : MonoBehaviour {
             {
                 Destroy(other.gameObject);
             }
+        }else if (other.CompareTag("Wall"))
+        {
+            wall = true;
         }
-	}
+        else if (other.CompareTag("Enemy") || other.CompareTag("2Enemy") && wall)
+        {
+            player.GetComponent<Level1Spawn>().alive = false;
+            if (other.CompareTag("2Enemy"))
+            {
+                Destroy(other.transform.parent.gameObject);
+                Destroy(other.gameObject);
+            }
+            else
+            {
+                Destroy(other.gameObject);
+            }
+            enemykilled = true;
+        }
+    }
 }

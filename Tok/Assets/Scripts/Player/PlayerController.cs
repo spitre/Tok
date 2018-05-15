@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour {
     Vector3 dircheck;
     
     bool jump=false;
-   
-   
+    
+
     void Update()
     {
         Movement();

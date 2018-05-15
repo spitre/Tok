@@ -33,7 +33,7 @@ public class EnemyShot : MonoBehaviour {
         var bullet = Instantiate(enemybullet, bulletSpawn.position, bulletSpawn.rotation);
         ShotDirection = bulletSpawn.position-transform.position;
 
-        aliveenemy = player.GetComponent<EnemySpawn>().aliveenemy;
+        aliveenemy = player.GetComponent<Level1Spawn>().aliveenemy;
         player.GetComponent<PlayerBayesian>().Spawns[aliveenemy] += 1;
         bullet.GetComponent<EnemyKill>().aliveenemy = aliveenemy;
         bullet.GetComponent<Rigidbody>().velocity = ShotDirection * speed;

@@ -12,7 +12,7 @@ public class Probability : MonoBehaviour
     bool calculated = false;
     int holder;
     public GameObject Capsule;
-    DataController data;
+    public DataController data;
 
     void Start()
     {

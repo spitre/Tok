@@ -19,11 +19,11 @@ public class PlayerBayesian : MonoBehaviour {
     }
 	
 	void Update () {
-        if (!GetComponent<EnemySpawn>().levelend)
+        if (!GetComponent<Level1Spawn>().levelend)
         {
             multiframe = false;
         }
-        if (GetComponent<playerhealth>().isDead||Input.GetKeyDown(KeyCode.Escape)||(GetComponent<EnemySpawn>().levelend && !multiframe))
+        if (GetComponent<playerhealth>().isDead||Input.GetKeyDown(KeyCode.Escape)||(GetComponent<Level1Spawn>().levelend && !multiframe))
         {
             for(int i = 0; i < 8; i++)
             {
@@ -39,7 +39,7 @@ public class PlayerBayesian : MonoBehaviour {
                   
                 }
             }
-            if (GetComponent<EnemySpawn>().levelend)
+            if (GetComponent<Level1Spawn>().levelend)
             {
                 multiframe = true;
             }

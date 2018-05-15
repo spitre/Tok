@@ -13,7 +13,7 @@ public class Scoretext : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-       killcount = player.GetComponent<EnemySpawn>().killcount;
+       killcount = player.GetComponent<Level1Spawn>().killcount;
         GetComponent<Text>().text = "Score: " + killcount.ToString();
     }
 }

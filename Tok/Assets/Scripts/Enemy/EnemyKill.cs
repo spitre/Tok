@@ -8,6 +8,7 @@ public class EnemyKill : MonoBehaviour {
     float pause = .05f;
     int index=0;
     bool haswritten = false;
+    bool hasspawned = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -33,6 +34,28 @@ public class EnemyKill : MonoBehaviour {
             {
                 other.GetComponent<ProximityCollider>().isClose = true;
             }
+        }else if (other.CompareTag("Wall"))
+        {
+            GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(45, Vector3.up)* - transform.forward*5;
+      
+           if (!hasspawned)
+            { 
+                if (other.GetComponentInParent<Wallscript>().player.GetComponent<Probability>().data.playerData.Prior[aliveenemy].mean <= other.GetComponentInParent<Wallscript>().player.GetComponent<RandomWalk>().Shuffled[other.GetComponentInParent<Wallscript>().player.GetComponent<RandomWalk>().shot])
+                {
+                    //other.GetComponentInParent<Wallscript>().player.GetComponent<RandomWalk>().lifeloss += 1;
+                }
+                  // hasspawned = true;
+                   //other.GetComponentInParent<Wallscript>().player.GetComponent<RandomWalk>().shot += 1;
+                   if (other.GetComponentInParent<Wallscript>().player.GetComponent<RandomWalk>().shot > 99)
+                   {
+                       //other.GetComponentInParent<Wallscript>().player.GetComponent<RandomWalk>().shot = 0;
+                   }
+            }
+            if(other.GetComponentInParent<Wallscript>().player.GetComponent<PlayerKill>().enemykilled&& other.GetComponentInParent<Wallscript>().player.GetComponent<PlayerKill>().wall)
+            {
+                hasspawned = false;
+            }
+            
         }
     }
     private void OnTriggerExit(Collider other)
