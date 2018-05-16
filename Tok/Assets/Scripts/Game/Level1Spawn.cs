@@ -5,12 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class Level1Spawn : MonoBehaviour {
     int[] Shuffled = new int[100];
-    GameObject Block;
+    public GameObject Block;
     public GameObject enemy1;
     public GameObject enemy2;
     public GameObject enemy3;
     public GameObject enemy4;
-
+    
     public int aliveenemy;
     public DataController data;
 
@@ -20,8 +20,8 @@ public class Level1Spawn : MonoBehaviour {
 
     public int lifeRemaining = 10;
 
-    int positionindex;
-    int enemyindex;
+    public int positionindex;
+    public int enemyindex;
 
     public bool alive = false;
     int framecount = 0;
@@ -32,13 +32,15 @@ public class Level1Spawn : MonoBehaviour {
     GameObject[] enemyArray = new GameObject[4];
     Vector3[] positionArray = new Vector3[4];
     public int[] Initarray = new int[4];
-    int shot1 = 0;
-    int shot2 = 0;
-    float Compare;
+    public int shot1 = 1;
+    public int shot2 = 0;
+    public float Compare;
     int currentpos = 3;
     int nextpos;
     int swap;
     bool assigned;
+    int spawncount=0;
+    bool deducted = false;
 
     void Start () {
         Block = GameObject.Find("Wall");
@@ -70,8 +72,19 @@ public class Level1Spawn : MonoBehaviour {
         killcount = 20;
         levelend = false;
     }
-	
-	void Update () {
+
+    void Update()
+    {
+        if (data.playerData.Resume&&!deducted)
+        {
+            GetComponent<playerhealth>().playerhealthnum = data.playerData.LifeRemaining;
+            data.playerData.Resume = false;
+            deducted = true;
+        }
+        else if (!data.playerData.Resume && !deducted)
+        {
+            GetComponent<playerhealth>().playerhealthnum = 10;
+        }
         if (levelend)
         {
             data.levelData.levelend = true;
@@ -82,143 +95,40 @@ public class Level1Spawn : MonoBehaviour {
         {
             if (!alive)
             {
-                if (assigned)
+                enemyindex = Mathf.RoundToInt(Shuffled[shot1] / 25);
+                if (enemyindex == 4)
                 {
-                    if (Shuffled[shot1] <= 25)
-                    {
-                        enemyindex = 0;
-                        shot1 += 1;
-                        Compare = Mathf.Round(data.playerData.Prior[enemyindex].mean*100f);
-                        if (Compare <= Shuffled[shot2])
-                        {
-                            positionindex = Initarray[enemyindex];
-                        }
-                        else
-                        {
-                            positionindex =  Mathf.RoundToInt(Shuffled[shot2] / 25);
-                            if(positionindex == Initarray[enemyindex]&&positionindex<3)
-                            {
-                                positionindex += 1;
-                            }else if(positionindex == Initarray[enemyindex] && positionindex == 3)
-                            {
-                                positionindex -= 1;
-                            }
-                        }
-                        shot2 += 1;
-                    }else if (Shuffled[shot1] > 25&& Shuffled[shot1] <= 50)
-                    {
-                        enemyindex = 1;
-                        shot1 += 1;
-                        Compare = Mathf.Round(data.playerData.Prior[enemyindex].mean * 100f);
-                        if (Compare <= Shuffled[shot2])
-                        {
-                            positionindex = Initarray[enemyindex];
-                        }
-                        else
-                        {
-                            positionindex = Mathf.RoundToInt(Shuffled[shot2] / 25);
-                            if (positionindex == Initarray[enemyindex] && positionindex < 3)
-                            {
-                                positionindex += 1;
-                            }
-                            else if (positionindex == Initarray[enemyindex] && positionindex == 3)
-                            {
-                                positionindex -= 1;
-                            }
-                       }
-                        shot2 += 1;
-                    }
-                    else if (Shuffled[shot1] > 50 && Shuffled[shot1] <= 75)
-                    {
-                        enemyindex = 2;
-                        shot1 += 1;
-                        Compare = Mathf.Round(data.playerData.Prior[enemyindex].mean * 100f);
-                        if (Compare <= Shuffled[shot2])
-                        {
-                            positionindex =  Initarray[enemyindex];
-                        }
-                        else
-                        {
-                            positionindex = Mathf.RoundToInt(Shuffled[shot2] / 25);
-                            if (positionindex == Initarray[enemyindex] && positionindex < 3)
-                            {
-                                positionindex += 1;
-                            }
-                            else if (positionindex == Initarray[enemyindex] && positionindex == 3)
-                            {
-                                positionindex -= 1;
-                            }
-                        }
-                        shot2 += 1;
-                    }
-                    else if (Shuffled[shot1] > 75)
-                    {
-                        enemyindex = 3;
-                        shot1 += 1;
-                        Compare = Mathf.Round(data.playerData.Prior[enemyindex].mean * 100f);
-                        if (Compare <= Shuffled[shot2])
-                        {
-                            positionindex = Initarray[enemyindex];
-                        }
-                        else
-                        {
-                            positionindex = Mathf.RoundToInt(Shuffled[shot2] / 25);
-                            if (positionindex == Initarray[enemyindex] && positionindex < 3)
-                            {
-                                positionindex += 1;
-                            }
-                            else if (positionindex == Initarray[enemyindex] && positionindex == 3)
-                            {
-                                positionindex -= 1;
-                            }
-                        }
-                        shot2 += 1;
-                    }
-                    if (shot1 > 99)
-                    {
-                        shot1 = 0;
-                    }else if (shot2 > 99)
-                    {
-                        shot2 = 0;
-                    }
+                    enemyindex -= 1;
+                }
+                Compare = Mathf.Round(data.playerData.Prior[enemyindex].mean * 100f);
+                if (Compare >= Shuffled[shot2])
+                {
+                    positionindex = Initarray[enemyindex];
                 }
                 else
                 {
-                    if (Shuffled[shot1] <= 25)
-                    {
-                        enemyindex = 0;
-                        shot1 += 1;
-                        positionindex = Initarray[enemyindex];
-                    }
-                    else if (Shuffled[shot1] > 25 && Shuffled[shot1] <= 50)
-                    {
-                        enemyindex = 1;
-                        positionindex = Initarray[enemyindex];
-                        shot1 += 1;
-                    }
-                    else if (Shuffled[shot1] > 50 && Shuffled[shot1] <= 75)
-                    {
-                        enemyindex = 2;
-                        positionindex = Initarray[enemyindex];
-                        shot1 += 1;
-                    }
-                    else if (Shuffled[shot1] > 75)
-                    {
-                        enemyindex = 3;
-                        positionindex = Initarray[enemyindex];
-                        shot1 += 1;
-                    }
-                    assigned = true;
-                    if (shot1 > 99)
-                    {
-                        shot1 = 0;
-                    }
+                    positionindex = Mathf.RoundToInt(Shuffled[shot2] / 25);
+                }
+                shot1 += 1;
+                shot2 += 1;
+                if (shot1 > 98)
+                {
+                    shot1 = 0;
+                }
+                else if (shot2 > 99)
+                {
+                    shot2 = 0;
+                }
+                if(positionindex == 4)
+                {
+                    positionindex -= 1;
                 }
                 framecount += 1;
                 if (framecount > 10)
                 {
                     var enemy = Instantiate(enemyArray[enemyindex], positionArray[positionindex], enemyArray[enemyindex].transform.rotation);
                     enemy.GetComponent<EnemyShot>().player = gameObject;
+                    enemy.GetComponent<EnemyShot>().positionindex = positionindex;
                     alive = true;
                     killcount -= 1;
                     aliveenemy = enemyindex;
@@ -235,5 +145,6 @@ public class Level1Spawn : MonoBehaviour {
                 framecount = 0;
             }
         }
-	}
+        
+    }
 }

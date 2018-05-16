@@ -4,11 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Wallscript : MonoBehaviour {
-    bool sceneloaded = false;
+    public  bool sceneloaded = false;
     DataController data;
     public GameObject player;
-    public int aliveenemy;
-    public int spawns;
     //Movement Initializations
     public static int width;
     float[] angles = new float[2];
@@ -27,6 +25,7 @@ public class Wallscript : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.A)&&!sceneloaded)
         {
+            data.playerData.Resume = true;
             SceneManager.LoadScene("Level1");
             sceneloaded = true;
         }

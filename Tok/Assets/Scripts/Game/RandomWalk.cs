@@ -22,7 +22,7 @@ public class RandomWalk : MonoBehaviour {
         {
             Shuffled[i] = i+1;
         }
-        while (currentpos > 0)
+        while (currentpos >= 0)
         {
             nextpos = Random.Range(currentpos, 100);
             swap = Shuffled[currentpos];
@@ -36,17 +36,11 @@ public class RandomWalk : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.S))
         {
+            GetComponent<Level1Spawn>().Block.GetComponent<Wallscript>().sceneloaded = false;
             SceneManager.LoadScene("Placement1");
-            GetComponent<Level1Spawn>().data.playerData.LifeRemaining -= GetComponent<playerhealth>().playerhealthnum - lifeloss;
+            GetComponent<Level1Spawn>().data.playerData.LifeRemaining -= lifeloss;
             lifeloss = 0;
         }
-        if(GetComponent<Probability>().Prob != 0)
-        {
-            Deduct();
-        }
-	}
-    void Deduct()
-    {
         Compare = Mathf.Round(GetComponent<Probability>().Prob * 100f);
         if (holder != Compare)
         {
@@ -57,7 +51,7 @@ public class RandomWalk : MonoBehaviour {
         {
             if (!calculated)
             {
-                if (Compare <= Shuffled[shot])
+                if (Compare >= Shuffled[shot])
                 {
                     lifeloss += 1;
                 }

@@ -12,6 +12,8 @@ public class EnemyShot : MonoBehaviour {
     float pauseFire = 0.8f;
     float starttime;
     public int aliveenemy;
+    public int positionindex;
+
     void Awake()
     {
         starttime = Time.time;
@@ -37,6 +39,7 @@ public class EnemyShot : MonoBehaviour {
         player.GetComponent<PlayerBayesian>().Spawns[aliveenemy] += 1;
         bullet.GetComponent<EnemyKill>().aliveenemy = aliveenemy;
         bullet.GetComponent<Rigidbody>().velocity = ShotDirection * speed;
+        bullet.GetComponent<EnemyKill>().positionindex = positionindex;
 
         Destroy(bullet, 3.0f);
     }

@@ -23,7 +23,7 @@ public class PlayerKill : MonoBehaviour {
             {
                 Destroy(other.gameObject);
             }
-        }else if (other.CompareTag("Wall"))
+        }else if (other.CompareTag("Wall2"))
         {
             wall = true;
         }

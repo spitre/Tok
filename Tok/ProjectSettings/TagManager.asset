@@ -11,6 +11,8 @@ TagManager:
   - Proximity
   - Wall
   - Enemy
+  - Wall1
+  - Wall2
   layers:
   - Default
   - TransparentFX
