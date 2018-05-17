@@ -8,10 +8,10 @@ public class EnemyKill : MonoBehaviour {
     float pause = .05f;
     int index=0;
     bool haswritten = false;
-    bool hasspawned = false;
     public int positionindex;
-    bool hashit = false;
+    bool hashit;
     float Compare;
+    public bool hasspawned;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -32,7 +32,6 @@ public class EnemyKill : MonoBehaviour {
                     other.GetComponent<ProximityCollider>().index = i;
                     index = i;
                 }
-
             }
             if (!other.GetComponent<ProximityCollider>().isClose)
             {
@@ -64,25 +63,20 @@ public class EnemyKill : MonoBehaviour {
                     break;
             }
 
-            if (!hasspawned)
+            if (hasspawned)
             {
                 Compare = Mathf.Round(other.GetComponentInParent<Wallscript>().player.GetComponent<Probability>().data.playerData.Prior[aliveenemy].mean * 100f);
                 if (Compare >= other.GetComponentInParent<Wallscript>().player.GetComponent<RandomWalk>().Shuffled[other.GetComponentInParent<Wallscript>().player.GetComponent<RandomWalk>().shot])
                 {
-                    other.GetComponentInParent<Wallscript>().player.GetComponent<RandomWalk>().lifeloss += 1;
+                    other.GetComponentInParent<Wallscript>().player.GetComponent<RandomWalk>().wallloss += 1;
                 }
-                hasspawned = true;
+                other.GetComponentInParent<Wallscript>().player.GetComponent<PlayerShot>().hasspawned = false;
                 other.GetComponentInParent<Wallscript>().player.GetComponent<RandomWalk>().shot += 1;
                 if (other.GetComponentInParent<Wallscript>().player.GetComponent<RandomWalk>().shot > 99)
                 {
                     other.GetComponentInParent<Wallscript>().player.GetComponent<RandomWalk>().shot = 0;
                 }
             }
-            if (other.GetComponentInParent<Wallscript>().player.GetComponent<PlayerShot>().bulletPrefab.GetComponent<PlayerKill>().enemykilled && other.GetComponentInParent<Wallscript>().player.GetComponent<PlayerShot>().bulletPrefab.GetComponent<PlayerKill>().wall)
-            {
-                hasspawned = false;
-            }
-
         }
     }
     private void OnTriggerExit(Collider other)

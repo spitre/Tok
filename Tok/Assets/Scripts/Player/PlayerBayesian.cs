@@ -12,10 +12,6 @@ public class PlayerBayesian : MonoBehaviour {
     public float[] Probarray = new float[8];
 	void Start () {
         data = FindObjectOfType<DataController>();
-        for (int i = 0; i < 8; i++)
-        {
-            Probarray[i] = data.playerData.Prior[i].mean;
-        }
     }
 	
 	void Update () {
@@ -33,7 +29,6 @@ public class PlayerBayesian : MonoBehaviour {
                     data.playerData.Prior[i].alpha = data.playerData.Prior[i].alpha + Kills[i];
                     data.playerData.Prior[i].beta = data.playerData.Prior[i].beta + Spawns[i] - Kills[i];
                     data.playerData.Prior[i].mean = Mathf.Round(((data.playerData.Prior[i].alpha) / (data.playerData.Prior[i].alpha + data.playerData.Prior[i].beta)) * 1000f) / 1000f;
-                    Probarray[i] = data.playerData.Prior[i].mean;
                     Kills[i] = 0;
                     Spawns[i] = 0;
                   

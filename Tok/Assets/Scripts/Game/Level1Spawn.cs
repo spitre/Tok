@@ -10,6 +10,11 @@ public class Level1Spawn : MonoBehaviour {
     public GameObject enemy2;
     public GameObject enemy3;
     public GameObject enemy4;
+    public int[,] spawnarray = new int[4,4];
+    public int[] spawn1 = new int[4];
+    public int[] spawn2 = new int[4];
+    public int[] spawn3 = new int[4];
+    public int[] spawn4 = new int[4];
     
     public int aliveenemy;
     public DataController data;
@@ -42,6 +47,7 @@ public class Level1Spawn : MonoBehaviour {
     int spawncount=0;
     bool deducted = false;
 
+
     void Start () {
         Block = GameObject.Find("Wall");
         Block.GetComponent<Wallscript>().player = gameObject;
@@ -69,7 +75,6 @@ public class Level1Spawn : MonoBehaviour {
             currentpos -= 1;
         }
 
-        killcount = 20;
         levelend = false;
     }
 
@@ -78,15 +83,19 @@ public class Level1Spawn : MonoBehaviour {
         if (data.playerData.Resume&&!deducted)
         {
             GetComponent<playerhealth>().playerhealthnum = data.playerData.LifeRemaining;
+            killcount = data.playerData.Score;
             data.playerData.Resume = false;
             deducted = true;
         }
         else if (!data.playerData.Resume && !deducted)
         {
+            killcount = 20;
             GetComponent<playerhealth>().playerhealthnum = 10;
         }
         if (levelend)
         {
+            data.playerData.Score = 20;
+            data.playerData.Level = 2;
             data.levelData.levelend = true;
             data.playerData.LifeRemaining = GetComponent<playerhealth>().playerhealthnum;
             SceneManager.LoadScene("Placement2");
@@ -127,8 +136,20 @@ public class Level1Spawn : MonoBehaviour {
                 if (framecount > 10)
                 {
                     var enemy = Instantiate(enemyArray[enemyindex], positionArray[positionindex], enemyArray[enemyindex].transform.rotation);
+                    spawnarray[positionindex,enemyindex] += 1;
+                    for(int i = 0; i < 4; i++)
+                    {
+                        spawn1[i] = spawnarray[0, i];
+                        spawn2[i] = spawnarray[1, i];
+                        spawn3[i] = spawnarray[2, i];
+                        spawn4[i] = spawnarray[3, i];
+                    }
                     enemy.GetComponent<EnemyShot>().player = gameObject;
                     enemy.GetComponent<EnemyShot>().positionindex = positionindex;
+                    if(positionindex == Block.GetComponent<Wallscript>().wallindex)
+                    {
+                        GetComponent<PlayerShot>().hasspawned = true;
+                    }
                     alive = true;
                     killcount -= 1;
                     aliveenemy = enemyindex;

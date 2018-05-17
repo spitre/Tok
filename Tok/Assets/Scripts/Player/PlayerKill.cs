@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerKill : MonoBehaviour {
-    GameObject player;
-    public bool wall=false;
+    public GameObject player;
     public bool enemykilled = false;
-    private void Start()
-    {
-        player = GameObject.Find("Character");
-    }
     void OnTriggerEnter (Collider other) {
-        if (other.CompareTag("Enemy")||other.CompareTag("2Enemy")&&!wall)
+        if (other.CompareTag("Enemy")||other.CompareTag("2Enemy")&& !player.GetComponent<PlayerShot>().wall)
         {
             player.GetComponent<Level1Spawn>().alive = false;
             if (other.CompareTag("2Enemy"))
@@ -25,9 +20,9 @@ public class PlayerKill : MonoBehaviour {
             }
         }else if (other.CompareTag("Wall2"))
         {
-            wall = true;
+            player.GetComponent<PlayerShot>().wall = true;
         }
-        else if (other.CompareTag("Enemy") || other.CompareTag("2Enemy") && wall)
+        else if (other.CompareTag("Enemy") || other.CompareTag("2Enemy") && player.GetComponent<PlayerShot>().wall)
         {
             player.GetComponent<Level1Spawn>().alive = false;
             if (other.CompareTag("2Enemy"))

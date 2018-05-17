@@ -7,7 +7,7 @@ public class Probability : MonoBehaviour
     public float Prob;
     float temp;
     bool isClose;
-    int[] aliveenemy;
+    public int[] aliveenemy;
     public int index;
     bool calculated = false;
     int holder;

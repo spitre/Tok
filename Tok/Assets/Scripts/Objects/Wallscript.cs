@@ -9,6 +9,9 @@ public class Wallscript : MonoBehaviour {
     public GameObject player;
     //Movement Initializations
     public static int width;
+    public int wallindex;
+    public bool timetravel;
+    float Compare;
     float[] angles = new float[2];
     Vector2 imagepos;
     Vector2 mousepos;
@@ -20,10 +23,29 @@ public class Wallscript : MonoBehaviour {
     void Start () {
         DontDestroyOnLoad(gameObject);
         data = FindObjectOfType<DataController>();
+        timetravel = data.levelData.timetravel;
 	}
 	
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.A)&&!sceneloaded)
+        if (Input.GetKeyDown(KeyCode.A)&&!sceneloaded&&timetravel)
+        {
+            if (wallindex != data.playerData.Wallloc)
+            {
+                for (int i=0; i < 4; i++)
+                {
+                    data.playerData.lifeloss -= data.playerData.deatharray[wallindex, i];
+                }
+                data.playerData.lifeloss += data.playerData.wallloss;
+                data.playerData.LifeRemaining -= data.playerData.lifeloss;
+            }
+            else
+            {
+                data.playerData.LifeRemaining -= data.playerData.lifeloss;
+            }
+            data.playerData.Resume = true;
+            SceneManager.LoadScene("Level1");
+            sceneloaded = true;
+        }else if(Input.GetKeyDown(KeyCode.A) && !sceneloaded && !timetravel)
         {
             data.playerData.Resume = true;
             SceneManager.LoadScene("Level1");
@@ -47,11 +69,13 @@ public class Wallscript : MonoBehaviour {
             {
                 transform.position = new Vector3(4.51f,0.47f,4.44f);
                 transform.rotation = Quaternion.AngleAxis(180, Vector3.up)* Quaternion.AngleAxis(-90, Vector3.right);
+                wallindex = 2;
             }
             else
             {
                 transform.position = new Vector3(4.51f, 0.47f, -4.44f);
                 transform.rotation = Quaternion.AngleAxis(-90, Vector3.up) * Quaternion.AngleAxis(-90, Vector3.right);
+                wallindex = 1;
             }
         }
         else
@@ -60,11 +84,13 @@ public class Wallscript : MonoBehaviour {
             {
                 transform.position = new Vector3(-4.51f, 0.47f, 4.44f);
                 transform.rotation = Quaternion.AngleAxis(90, Vector3.up) * Quaternion.AngleAxis(-90, Vector3.right);
+                wallindex = 3;
             }
             else
             {
                 transform.position = new Vector3(-4.51f, 0.47f, -4.44f);
                 transform.rotation = Quaternion.AngleAxis(-90, Vector3.right);
+                wallindex = 0;
             }
         }
     }

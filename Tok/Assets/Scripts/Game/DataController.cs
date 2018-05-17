@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class DataController : MonoBehaviour {
     public PlayerData playerData = new PlayerData();
     public Leveldata levelData = new Leveldata();
+    public 
     string path;
 	void Start () {
         string path = Application.dataPath + "/StreamingAssets" + "/data.json";
@@ -35,7 +36,7 @@ public class DataController : MonoBehaviour {
             ReadFromJson(path);
         }
     }
-    private void LoadtoJson(string path)
+    public void LoadtoJson(string path)
     {
 
         if (!File.Exists(path))

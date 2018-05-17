@@ -40,6 +40,7 @@ public class EnemyShot : MonoBehaviour {
         bullet.GetComponent<EnemyKill>().aliveenemy = aliveenemy;
         bullet.GetComponent<Rigidbody>().velocity = ShotDirection * speed;
         bullet.GetComponent<EnemyKill>().positionindex = positionindex;
+        bullet.GetComponent<EnemyKill>().hasspawned = player.GetComponent<PlayerShot>().hasspawned;
 
         Destroy(bullet, 3.0f);
     }
