@@ -46,12 +46,14 @@ public class wallscriptlevel2 : MonoBehaviour
                 data.playerData.LifeRemaining -= data.playerData.lifeloss;
             }
             data.playerData.Resume = true;
+            data.levelData.levelend = false;
             SceneManager.LoadScene("Level2");
             sceneloaded = true;
         }
         else if (Input.GetKeyDown(KeyCode.A) && !sceneloaded && !timetravel)
         {
             data.playerData.Resume = true;
+            data.levelData.levelend = false;
             SceneManager.LoadScene("Level2");
             sceneloaded = true;
         }

@@ -18,10 +18,18 @@ public class MenuController : MonoBehaviour {
     public void ResumeGame()
     {
         data.playerData.Resume = true;
-        SceneManager.LoadScene("Placement1");
+        if (data.playerData.Level == 1)
+        {
+            SceneManager.LoadScene("Placement1");
+        }
+        else
+        {
+            SceneManager.LoadScene("Placement2");
+        }
     }
     public void QuitGame()
     {
+        data.levelData.levelend = false;
         Application.Quit();
     }
 	

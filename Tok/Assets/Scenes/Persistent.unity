@@ -144,11 +144,18 @@ MonoBehaviour:
   playerData:
     Level: 0
     LifeRemaining: 0
+    Score: 0
+    Wallloc: 0
+    lifeloss: 0
+    wallloss: 0
     Prior: []
     Resume: 0
     isDead: 0
   levelData:
     levelend: 0
+    Shuffled: 
+    timetravel: 0
+  path: 
 --- !u!4 &1975473928
 Transform:
   m_ObjectHideFlags: 0

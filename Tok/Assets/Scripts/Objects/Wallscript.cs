@@ -19,6 +19,7 @@ public class Wallscript : MonoBehaviour {
     Vector3 from;
     Vector3 to;
     Vector3 dircheck;
+    int framecount = 0; 
 
     void Start () {
         DontDestroyOnLoad(gameObject);
@@ -62,36 +63,43 @@ public class Wallscript : MonoBehaviour {
     }
     void Movement()
     {
-        angles = GetAngles();
-        if (angles[1] <= 90)
+        if (framecount > 180)
         {
-            if (angles[0] <= 90)
+            angles = GetAngles();
+            if (angles[1] <= 90)
             {
-                transform.position = new Vector3(4.51f,0.47f,4.44f);
-                transform.rotation = Quaternion.AngleAxis(180, Vector3.up)* Quaternion.AngleAxis(-90, Vector3.right);
-                wallindex = 2;
+                if (angles[0] <= 90)
+                {
+                    transform.position = new Vector3(4.51f, 0.47f, 4.44f);
+                    transform.rotation = Quaternion.AngleAxis(180, Vector3.up) * Quaternion.AngleAxis(-90, Vector3.right);
+                    wallindex = 2;
+                }
+                else
+                {
+                    transform.position = new Vector3(4.51f, 0.47f, -4.44f);
+                    transform.rotation = Quaternion.AngleAxis(-90, Vector3.up) * Quaternion.AngleAxis(-90, Vector3.right);
+                    wallindex = 1;
+                }
             }
             else
             {
-                transform.position = new Vector3(4.51f, 0.47f, -4.44f);
-                transform.rotation = Quaternion.AngleAxis(-90, Vector3.up) * Quaternion.AngleAxis(-90, Vector3.right);
-                wallindex = 1;
+                if (angles[0] <= 90)
+                {
+                    transform.position = new Vector3(-4.51f, 0.47f, 4.44f);
+                    transform.rotation = Quaternion.AngleAxis(90, Vector3.up) * Quaternion.AngleAxis(-90, Vector3.right);
+                    wallindex = 3;
+                }
+                else
+                {
+                    transform.position = new Vector3(-4.51f, 0.47f, -4.44f);
+                    transform.rotation = Quaternion.AngleAxis(-90, Vector3.right);
+                    wallindex = 0;
+                }
             }
         }
         else
         {
-            if (angles[0] <= 90)
-            {
-                transform.position = new Vector3(-4.51f, 0.47f, 4.44f);
-                transform.rotation = Quaternion.AngleAxis(90, Vector3.up) * Quaternion.AngleAxis(-90, Vector3.right);
-                wallindex = 3;
-            }
-            else
-            {
-                transform.position = new Vector3(-4.51f, 0.47f, -4.44f);
-                transform.rotation = Quaternion.AngleAxis(-90, Vector3.right);
-                wallindex = 0;
-            }
+            framecount += 1;
         }
     }
     

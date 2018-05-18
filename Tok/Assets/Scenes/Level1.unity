@@ -955,6 +955,12 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114512795962253362, guid: c0afafc90586b7e489c2b5eab236002d,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1225892827616448, guid: 698922d440011b44fbf30e2d043eb177,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 114617920855543132, guid: c0afafc90586b7e489c2b5eab236002d, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: c0afafc90586b7e489c2b5eab236002d, type: 2}
@@ -980,17 +986,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 175763c8731d08b4d9ed54e048f04cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Block: {fileID: 0}
   enemy1: {fileID: 1875595808898958, guid: 5f0203aeee3212949a7dd7d24659b3e3, type: 2}
   enemy2: {fileID: 1197728824311178, guid: fee693d5928de8f438e8a0d58fe3dd89, type: 2}
   enemy3: {fileID: 1452917043440072, guid: 39d18daaff90ad94fb99c468a41e6165, type: 2}
   enemy4: {fileID: 1315735950120118, guid: e35d75b1b16b7834c92f15bec02061a0, type: 2}
+  spawn1: 00000000000000000000000000000000
+  spawn2: 00000000000000000000000000000000
+  spawn3: 00000000000000000000000000000000
+  spawn4: 00000000000000000000000000000000
   aliveenemy: 0
   data: {fileID: 0}
   killcount: 0
   levelend: 0
   lifeRemaining: 10
+  positionindex: 0
+  enemyindex: 0
   alive: 0
   Initarray: 00000000000000000000000000000000
+  shot1: 1
+  shot2: 0
+  Compare: 0
 --- !u!114 &1531722356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1006,6 +1022,11 @@ MonoBehaviour:
   shot: 0
   lifeloss: 0
   Compare: 0
+  wallloss: 0
+  death1: 00000000000000000000000000000000
+  death2: 00000000000000000000000000000000
+  death3: 00000000000000000000000000000000
+  death4: 00000000000000000000000000000000
 --- !u!114 &1531722357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1018,6 +1039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prob: 0
+  aliveenemy: 
   index: 0
   Capsule: {fileID: 87721643}
   data: {fileID: 0}

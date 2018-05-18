@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 136575121797818460}
   - component: {fileID: 23687837360915202}
   - component: {fileID: 54803849741957086}
-  - component: {fileID: 114036593313964476}
+  - component: {fileID: 114567990257215014}
   m_Layer: 0
   m_Name: EnemyBullet24
   m_TagString: Bullet
@@ -100,7 +100,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114036593313964476
+--- !u!114 &114567990257215014
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -108,9 +108,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1338822775213354}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ed7d17d5c719e8489752df5edf23aaf, type: 3}
+  m_Script: {fileID: 11500000, guid: df14e1ee78f1334419b5366a26abb86c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aliveenemy: 0
+  positionindex: 0
+  hasspawned: 0
 --- !u!136 &136575121797818460
 CapsuleCollider:
   m_ObjectHideFlags: 1

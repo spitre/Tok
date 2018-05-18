@@ -52,8 +52,8 @@ public class Level2Spawn : MonoBehaviour
     void Start()
     {
         Block = GameObject.Find("Wall");
-        Block.GetComponent<Wallscript>().player = gameObject;
-        Shuffled = GetComponent<RandomWalk>().Shuffled;
+        Block.GetComponent<wallscriptlevel2>().player = gameObject;
+        Shuffled = GetComponent<RandomWalkLevel2>().Shuffled;
         data = FindObjectOfType<DataController>();
         positionArray[0] = new Vector3(-4.5f, 1.15f, -4.5f);
         positionArray[1] = new Vector3(4.5f, 1.15f, -4.5f);
@@ -102,7 +102,7 @@ public class Level2Spawn : MonoBehaviour
             data.levelData.timetravel = false;
             data.levelData.levelend = true;
             data.playerData.LifeRemaining = GetComponent<playerhealth>().playerhealthnum;
-            SceneManager.LoadScene("Placement3");
+            SceneManager.LoadScene("GameEnd");
         }
         else
         {
@@ -148,17 +148,17 @@ public class Level2Spawn : MonoBehaviour
                         spawn3[i] = spawnarray[2, i];
                         spawn4[i] = spawnarray[3, i];
                     }
-                    enemy.GetComponent<EnemyShot>().player = gameObject;
-                    enemy.GetComponent<EnemyShot>().positionindex = positionindex;
-                    if (positionindex == Block.GetComponent<Wallscript>().wallindex)
+                    enemy.GetComponent<Playerinfo>().player = gameObject;
+                    enemy.GetComponent<Playerinfo>().positionindex = positionindex;
+                    if (positionindex == Block.GetComponent<wallscriptlevel2>().wallindex)
                     {
-                        GetComponent<PlayerShot>().hasspawned = true;
+                        GetComponent<PlayerShotLevel2>().hasspawned = true;
                     }
                     alive = true;
                     killcount -= 1;
-                    aliveenemy = enemyindex;
+                    aliveenemy = enemyindex+4;
 
-                    if (killcount < 0)
+                    if (killcount <= 0)
                     {
                         levelend = true;
                         data.playerData.Level = 2;
@@ -170,7 +170,6 @@ public class Level2Spawn : MonoBehaviour
                 framecount = 0;
             }
         }
-
     }
 }
 

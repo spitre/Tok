@@ -75,7 +75,6 @@ public class Level1Spawn : MonoBehaviour {
             currentpos -= 1;
         }
 
-        levelend = false;
     }
 
     void Update()
@@ -154,7 +153,7 @@ public class Level1Spawn : MonoBehaviour {
                     killcount -= 1;
                     aliveenemy = enemyindex;
 
-                    if (killcount < 0)
+                    if (killcount <= 0)
                     {
                         levelend = true;
                         data.playerData.Level = 2;

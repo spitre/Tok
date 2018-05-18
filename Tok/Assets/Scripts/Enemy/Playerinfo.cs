@@ -4,4 +4,6 @@ using UnityEngine;
 
 public class Playerinfo : MonoBehaviour {
     public GameObject player;
+    public int positionindex;
+    public bool hasspawned;
 }

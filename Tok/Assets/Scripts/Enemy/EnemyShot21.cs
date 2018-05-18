@@ -29,11 +29,13 @@ public class EnemyShot21 : MonoBehaviour {
         Transform bulletSpawn = transform.GetChild(0);
         var bullet = Instantiate(enemybullet, bulletSpawn.position, bulletSpawn.rotation);
         ShotDirection = bulletSpawn.position - transform.position;
-        aliveenemy = GetComponent<Playerinfo>().player.GetComponent<EnemySpawn>().aliveenemy;
-        GetComponent<Playerinfo>().player.GetComponent<PlayerBayesian>().Spawns[aliveenemy] += 1;
+        aliveenemy = GetComponent<Playerinfo>().player.GetComponent<Level2Spawn>().aliveenemy;
+        GetComponent<Playerinfo>().player.GetComponent<PlayerBayesianLevel2>().Spawns[aliveenemy] += 1;
 
-        bullet.GetComponent<EnemyKill>().aliveenemy = aliveenemy;
+        bullet.GetComponent<EnemyKillLevel2>().aliveenemy = aliveenemy;
         bullet.GetComponent<Rigidbody>().velocity = ShotDirection * speed;
+        bullet.GetComponent<EnemyKillLevel2>().hasspawned = GetComponent<Playerinfo>().player.GetComponent<PlayerShotLevel2>().hasspawned;
+        bullet.GetComponent<EnemyKillLevel2>().positionindex = GetComponent<Playerinfo>().positionindex;
         Destroy(bullet, 5.0f);
     }
 }
