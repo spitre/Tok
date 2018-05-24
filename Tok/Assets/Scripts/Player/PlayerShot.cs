@@ -10,12 +10,9 @@ public class PlayerShot : MonoBehaviour {
     public bool hasspawned = false;
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Fire();
-        }
+            //Fire();
 	}
-    void Fire()
+    public void Fire()
     {
         Transform bulletSpawn = transform.GetChild(3);
         

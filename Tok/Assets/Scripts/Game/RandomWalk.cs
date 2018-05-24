@@ -21,6 +21,7 @@ public class RandomWalk : MonoBehaviour {
     public int[] death2 = new int[4];
     public int[] death3 = new int[4];
     public int[] death4 = new int[4];
+    public bool Timeclick = false;
     void Start () {
         lifeloss = 0;
         shot = 0;
@@ -41,7 +42,7 @@ public class RandomWalk : MonoBehaviour {
 	
 	
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Timeclick)
         {
             GetComponent<Level1Spawn>().data.playerData.lifeloss= lifeloss;
             GetComponent<Level1Spawn>().data.playerData.Score = GetComponent<Level1Spawn>().killcount;
@@ -50,10 +51,11 @@ public class RandomWalk : MonoBehaviour {
             GetComponent<Level1Spawn>().data.playerData.spawnarray = GetComponent<Level1Spawn>().spawnarray;
             GetComponent<Level1Spawn>().data.playerData.deatharray = deatharray;
             GetComponent<Level1Spawn>().data.levelData.Shuffled = Shuffled;
+            GetComponent<Level1Spawn>().data.levelData.levelend = false;
             GetComponent<Level1Spawn>().Block.GetComponent<Wallscript>().sceneloaded = false;
             lifeloss = 0;
             GetComponent<Level1Spawn>().data.levelData.timetravel = true;
-
+            Timeclick = false;
             SceneManager.LoadScene("Placement1");
         }
         Compare = Mathf.Round(GetComponent<Probability>().Prob * 100f);
@@ -91,5 +93,9 @@ public class RandomWalk : MonoBehaviour {
         {
             calculated = false;
         }
+    }
+    public void ButtonClicked()
+    {
+        Timeclick = true;
     }
 }

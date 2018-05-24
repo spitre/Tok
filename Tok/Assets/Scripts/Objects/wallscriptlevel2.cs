@@ -20,6 +20,8 @@ public class wallscriptlevel2 : MonoBehaviour
     Vector3 from;
     Vector3 to;
     Vector3 dircheck;
+    int framecount = 0;
+    public bool isPressed = false;
 
     void Start()
     {
@@ -30,80 +32,82 @@ public class wallscriptlevel2 : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A) && !sceneloaded && timetravel)
-        {
-            if (wallindex != data.playerData.Wallloc)
+            if (isPressed&& !sceneloaded && timetravel)
             {
-                for (int i = 0; i < 4; i++)
+                if (wallindex != data.playerData.Wallloc)
                 {
-                    data.playerData.lifeloss -= data.playerData.deatharray[wallindex, i];
+                    for (int i = 0; i < 4; i++)
+                    {
+                        data.playerData.lifeloss -= data.playerData.deatharray[wallindex, i];
+                    }
+                    data.playerData.lifeloss += data.playerData.wallloss;
+                    data.playerData.LifeRemaining -= data.playerData.lifeloss;
                 }
-                data.playerData.lifeloss += data.playerData.wallloss;
-                data.playerData.LifeRemaining -= data.playerData.lifeloss;
+                else
+                {
+                    data.playerData.LifeRemaining -= data.playerData.lifeloss;
+                }
+                data.playerData.Resume = true;
+                data.levelData.levelend = false;
+                SceneManager.LoadScene("Level2");
+                sceneloaded = true;
+                isPressed = false;
             }
-            else
+            else if (isPressed && !sceneloaded && !timetravel)
             {
-                data.playerData.LifeRemaining -= data.playerData.lifeloss;
+                data.playerData.Resume = true;
+                data.levelData.levelend = false;
+                SceneManager.LoadScene("Level2");
+                sceneloaded = true;
+                isPressed = false;
             }
-            data.playerData.Resume = true;
-            data.levelData.levelend = false;
-            SceneManager.LoadScene("Level2");
-            sceneloaded = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.A) && !sceneloaded && !timetravel)
-        {
-            data.playerData.Resume = true;
-            data.levelData.levelend = false;
-            SceneManager.LoadScene("Level2");
-            sceneloaded = true;
-        }
-        else if (!sceneloaded)
-        {
-            Movement();
-        }
-        else if (data.levelData.levelend || data.playerData.isDead || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.S))
-        {
-            Destroy(gameObject);
-        }
+            else if (!sceneloaded)
+            {
+                Movement();
+            }
+            else if (data.levelData.levelend || data.playerData.isDead || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.S))
+            {
+                Destroy(gameObject);
+            }
     }
     void Movement()
     {
-        angles = GetAngles();
-        if (angles[1] <= 90)
-        {
-            if (angles[0] <= 90)
+            angles = GetAngles();
+            if (angles[1] <= 90)
             {
-                transform.position = new Vector3(4.51f, 0.47f, 4.44f);
-                transform.rotation = Quaternion.AngleAxis(180, Vector3.up) * Quaternion.AngleAxis(-90, Vector3.right);
-                wallindex = 2;
+                if (angles[0] <= 90)
+                {
+                    transform.position = new Vector3(4.51f, 0.47f, 4.44f);
+                    transform.rotation = Quaternion.AngleAxis(180, Vector3.up) * Quaternion.AngleAxis(-90, Vector3.right);
+                    wallindex = 2;
+                }
+                else
+                {
+                    transform.position = new Vector3(4.51f, 0.47f, -4.44f);
+                    transform.rotation = Quaternion.AngleAxis(-90, Vector3.up) * Quaternion.AngleAxis(-90, Vector3.right);
+                    wallindex = 1;
+                }
             }
             else
             {
-                transform.position = new Vector3(4.51f, 0.47f, -4.44f);
-                transform.rotation = Quaternion.AngleAxis(-90, Vector3.up) * Quaternion.AngleAxis(-90, Vector3.right);
-                wallindex = 1;
+                if (angles[0] <= 90)
+                {
+                    transform.position = new Vector3(-4.51f, 0.47f, 4.44f);
+                    transform.rotation = Quaternion.AngleAxis(90, Vector3.up) * Quaternion.AngleAxis(-90, Vector3.right);
+                    wallindex = 3;
+                }
+                else
+                {
+                    transform.position = new Vector3(-4.51f, 0.47f, -4.44f);
+                    transform.rotation = Quaternion.AngleAxis(-90, Vector3.right);
+                    wallindex = 0;
+                }
             }
-        }
-        else
-        {
-            if (angles[0] <= 90)
-            {
-                transform.position = new Vector3(-4.51f, 0.47f, 4.44f);
-                transform.rotation = Quaternion.AngleAxis(90, Vector3.up) * Quaternion.AngleAxis(-90, Vector3.right);
-                wallindex = 3;
-            }
-            else
-            {
-                transform.position = new Vector3(-4.51f, 0.47f, -4.44f);
-                transform.rotation = Quaternion.AngleAxis(-90, Vector3.right);
-                wallindex = 0;
-            }
-        }
     }
 
     public float[] GetAngles()
     {
-        width = Screen.width / 2;
+        width = Screen.width - 100;
         imagepos = new Vector2(width, 60);
         from = new Vector3(0, 1, 0);
         dircheck = new Vector3(1, 0, 0);
@@ -113,5 +117,8 @@ public class wallscriptlevel2 : MonoBehaviour
         angles[0] = Vector3.Angle(from, to);
         angles[1] = Vector3.Angle(dircheck, to);
         return angles;
+    }
+    public void ButtonClicked() {
+        isPressed = true;
     }
 }

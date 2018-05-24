@@ -97,7 +97,7 @@ public class Level1Spawn : MonoBehaviour {
             data.playerData.Level = 2;
             data.levelData.levelend = true;
             data.playerData.LifeRemaining = GetComponent<playerhealth>().playerhealthnum;
-            SceneManager.LoadScene("Placement2");
+            SceneManager.LoadScene("Levelend");
         }
         else
         {

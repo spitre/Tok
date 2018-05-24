@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,7 +20,8 @@ public class Wallscript : MonoBehaviour {
     Vector3 from;
     Vector3 to;
     Vector3 dircheck;
-    int framecount = 0; 
+    int framecount = 0;
+    public bool isPressed=false;
 
     void Start () {
         DontDestroyOnLoad(gameObject);
@@ -27,44 +29,18 @@ public class Wallscript : MonoBehaviour {
         timetravel = data.levelData.timetravel;
 	}
 	
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.A)&&!sceneloaded&&timetravel)
-        {
-            if (wallindex != data.playerData.Wallloc)
+	 void Update () {
+            if (!sceneloaded)
             {
-                for (int i=0; i < 4; i++)
-                {
-                    data.playerData.lifeloss -= data.playerData.deatharray[wallindex, i];
-                }
-                data.playerData.lifeloss += data.playerData.wallloss;
-                data.playerData.LifeRemaining -= data.playerData.lifeloss;
+                Movement();
             }
-            else
+            else if (data.levelData.levelend||data.playerData.isDead||Input.GetKeyDown(KeyCode.Escape)|| player.GetComponent<RandomWalk>().Timeclick)
             {
-                data.playerData.LifeRemaining -= data.playerData.lifeloss;
+                Destroy(gameObject);
             }
-            data.playerData.Resume = true;
-            SceneManager.LoadScene("Level1");
-            sceneloaded = true;
-        }else if(Input.GetKeyDown(KeyCode.A) && !sceneloaded && !timetravel)
-        {
-            data.playerData.Resume = true;
-            SceneManager.LoadScene("Level1");
-            sceneloaded = true;
-        }
-        else if (!sceneloaded)
-        {
-            Movement();
-        }
-        else if (data.levelData.levelend||data.playerData.isDead||Input.GetKeyDown(KeyCode.Escape)|| Input.GetKeyDown(KeyCode.S))
-        {
-            Destroy(gameObject);
-        }
     }
     void Movement()
     {
-        if (framecount > 180)
-        {
             angles = GetAngles();
             if (angles[1] <= 90)
             {
@@ -96,16 +72,11 @@ public class Wallscript : MonoBehaviour {
                     wallindex = 0;
                 }
             }
-        }
-        else
-        {
-            framecount += 1;
-        }
     }
     
     public float[] GetAngles()
     {
-        width = Screen.width / 2;
+        width = Screen.width -100;
         imagepos = new Vector2(width, 60);
         from = new Vector3(0, 1, 0);
         dircheck = new Vector3(1, 0, 0);
@@ -115,5 +86,35 @@ public class Wallscript : MonoBehaviour {
         angles[0] = Vector3.Angle(from, to);
         angles[1] = Vector3.Angle(dircheck, to);
         return angles;
+    }
+    public void ButtonPressed()
+    {
+        if (!sceneloaded && timetravel)
+        {
+            if (wallindex != data.playerData.Wallloc)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    data.playerData.lifeloss -= data.playerData.deatharray[wallindex, i];
+                }
+                data.playerData.lifeloss += data.playerData.wallloss;
+                data.playerData.LifeRemaining -= data.playerData.lifeloss;
+            }
+            else
+            {
+                data.playerData.LifeRemaining -= data.playerData.lifeloss;
+            }
+            data.playerData.Resume = true;
+            SceneManager.LoadScene("Level1");
+            sceneloaded = true;
+            isPressed = false;
+        }
+        else if (!sceneloaded && !timetravel)
+        {
+            data.playerData.Resume = true;
+            SceneManager.LoadScene("Level1");
+            sceneloaded = true;
+            isPressed = false;
+        }
     }
 }

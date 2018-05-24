@@ -15,7 +15,7 @@ public class PlacementController : MonoBehaviour {
     Vector3 dircheck;
     public float[] GetAngles()
     {
-        width = Screen.width / 2;
+        width = Screen.width -100;
         imagepos = new Vector2(width, 60);
         from = new Vector3(0, 1, 0);
         dircheck = new Vector3(1, 0, 0);

@@ -53,6 +53,7 @@ public class RandomWalkLevel2 : MonoBehaviour
             GetComponent<Level2Spawn>().data.playerData.spawnarray = GetComponent<Level2Spawn>().spawnarray;
             GetComponent<Level2Spawn>().data.playerData.deatharray = deatharray;
             GetComponent<Level2Spawn>().data.levelData.Shuffled = Shuffled;
+            GetComponent<Level2Spawn>().data.levelData.levelend = false;
             GetComponent<Level2Spawn>().Block.GetComponent<wallscriptlevel2>().sceneloaded = false;
             lifeloss = 0;
             GetComponent<Level2Spawn>().data.levelData.timetravel = true;

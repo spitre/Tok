@@ -15,14 +15,15 @@ public class PlayerController : MonoBehaviour {
     Vector3 dircheck;
     
     bool jump=false;
-    
+    public bool Jumpclick = false;
 
     void Update()
     {
         Movement();
-        if (Input.GetKeyDown("space")||jump)
+        if (Jumpclick||jump)
         {
             ExecuteJump();
+            Jumpclick = false;
         }
 
     }
@@ -61,7 +62,7 @@ public class PlayerController : MonoBehaviour {
     }
     public float[] GetAngles()
     {
-        width = Screen.width / 2;
+        width = Screen.width-100;
         imagepos = new Vector2(width, 60);
         from = new Vector3(0, 1, 0);
         dircheck = new Vector3(1, 0, 0);
@@ -71,5 +72,9 @@ public class PlayerController : MonoBehaviour {
         angles[0] = Vector3.Angle(from, to);
         angles[1] = Vector3.Angle(dircheck, to);
         return angles;
+    }
+    public void ButtonClicked()
+    {
+        Jumpclick = true;
     }
 }
