@@ -9,29 +9,27 @@ EditorBuildSettings:
     path: Assets/Scenes/Persistent.unity
     guid: 668416b28d4341b4a9d7eee26db4b7f4
   - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: af688572ec8b20a41998c8b2a804e411
+  - enabled: 1
     path: Assets/Scenes/Placement1.unity
     guid: e5b423992c3e40f4093450c04c1641ff
   - enabled: 1
     path: Assets/Scenes/Level1.unity
     guid: d1c0b09408d62ce4a96eb308efa7e00f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LevelEnd.unity
     guid: afdbd8301faee0949b6871b3525e956e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Placement2.unity
     guid: dcd32e0987a30734a819481e6cb7e039
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level2.unity
     guid: 96eb6c76ad8b81a4ca8b26f162dd8430
   - enabled: 0
-    path: Assets/Obsolete/Game.unity
-    guid: 946f3de01a2bb944ca87d43797919dd4
-  - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: af688572ec8b20a41998c8b2a804e411
-  - enabled: 1
     path: Assets/Scenes/Death.unity
     guid: aa5dde1b85bdf254f9a6d2d3824ea44d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameEnd.unity
     guid: 7898d0cfb7dc1f342898a4029c220d00
+  m_configObjects: {}

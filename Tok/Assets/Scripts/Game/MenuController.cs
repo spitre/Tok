@@ -23,13 +23,13 @@ public class MenuController : MonoBehaviour {
             SceneManager.LoadScene("Placement1");
         }
         else
-        {
+       {
             SceneManager.LoadScene("Placement2");
         }
     }
     public void QuitGame()
     {
-        data.levelData.levelend = false;
+       data.levelData.levelend = false;
         Application.Quit();
     }
 	

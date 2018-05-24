@@ -6,10 +6,9 @@ using UnityEngine.SceneManagement;
 public class DataController : MonoBehaviour {
     public PlayerData playerData = new PlayerData();
     public Leveldata levelData = new Leveldata();
-    public 
     string path;
 	void Start () {
-        string path = Application.dataPath + "/StreamingAssets" + "/data.json";
+        string path = path = Application.persistentDataPath + "/data.json";
         ReadFromJson(path);
         DontDestroyOnLoad(gameObject);
         SceneManager.LoadScene("Menu");
@@ -18,7 +17,7 @@ public class DataController : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            string path = Application.dataPath + "/StreamingAssets" + "/data.json";
+            string path = Application.persistentDataPath + "/data.json";
             LoadtoJson(path);
             ReadFromJson(path);
             SceneManager.LoadScene("Menu");
@@ -26,12 +25,12 @@ public class DataController : MonoBehaviour {
         {
             playerData.LifeRemaining = 10;
             playerData.isDead = false;
-            string path = Application.dataPath + "/StreamingAssets" + "/data.json";
+            string path = Application.persistentDataPath + "/data.json";
             LoadtoJson(path);
             ReadFromJson(path);
         }else if (levelData.levelend)
         {
-            string path = Application.dataPath + "/StreamingAssets" + "/data.json";
+            string path = Application.persistentDataPath + "/data.json";
             LoadtoJson(path);
             ReadFromJson(path);
         }
