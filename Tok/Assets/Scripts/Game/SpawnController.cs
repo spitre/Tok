@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class SpawnController : MonoBehaviour
 {
-    bool jump = false;
+    public bool jump = false;
     public int jumpspeed = 6;
     public float gravity = 11f;
     float y0;
+    float x0;
+    float z0;
+    float[] angles = new float[2];
+
+    public bool Jumpclick = false;
     private void Start()
     {
         y0 = transform.localPosition.y;
@@ -15,9 +20,10 @@ public class SpawnController : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown("space")||jump)
+        if (Jumpclick||jump)
         {
             ExecuteJump();
+            Jumpclick = false;
         }
     }
     
@@ -41,5 +47,11 @@ public class SpawnController : MonoBehaviour
                 GetComponent<Rigidbody>().velocity -= gravity * Time.deltaTime * Vector3.up;
             }
         }
+       
+        
+    }
+    public void GreenButtonClick()
+    {
+        Jumpclick = true;
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class wallscriptlevel2 : MonoBehaviour
 {
     public bool sceneloaded = false;
+    public static float cutoff;
     DataController data;
     public GameObject player;
     //Movement Initializations
@@ -27,45 +28,18 @@ public class wallscriptlevel2 : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         data = FindObjectOfType<DataController>();
-        timetravel = data.levelData.timetravel;
+        data.levelData.levelend = false;
     }
 
     void Update()
     {
-            if (isPressed&& !sceneloaded && timetravel)
-            {
-                if (wallindex != data.playerData.Wallloc)
-                {
-                    for (int i = 0; i < 4; i++)
-                    {
-                        data.playerData.lifeloss -= data.playerData.deatharray[wallindex, i];
-                    }
-                    data.playerData.lifeloss += data.playerData.wallloss;
-                    data.playerData.LifeRemaining -= data.playerData.lifeloss;
-                }
-                else
-                {
-                    data.playerData.LifeRemaining -= data.playerData.lifeloss;
-                }
-                data.playerData.Resume = true;
-                data.levelData.levelend = false;
-                SceneManager.LoadScene("Level2");
-                sceneloaded = true;
-                isPressed = false;
-            }
-            else if (isPressed && !sceneloaded && !timetravel)
-            {
-                data.playerData.Resume = true;
-                data.levelData.levelend = false;
-                SceneManager.LoadScene("Level2");
-                sceneloaded = true;
-                isPressed = false;
-            }
-            else if (!sceneloaded)
-            {
-                Movement();
-            }
-            else if (data.levelData.levelend || data.playerData.isDead || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.S))
+        if (!sceneloaded)
+        {
+            Movement();
+        }
+    }
+    void LateUpdate(){
+            if (data.levelData.levelend || data.playerData.isDead || Input.GetKeyDown(KeyCode.Escape) || timetravel)
             {
                 Destroy(gameObject);
             }
@@ -107,11 +81,24 @@ public class wallscriptlevel2 : MonoBehaviour
 
     public float[] GetAngles()
     {
+        Touch[] myTouches = Input.touches;
+        if (Input.touchCount > 0)
+        {
+            cutoff = Screen.width * .25f;
+            if (myTouches[0].position.x < cutoff)
+            {
+                mousepos = new Vector2(myTouches[1].position.x, myTouches[1].position.y);
+            }
+            else
+            {
+                mousepos = new Vector2(myTouches[0].position.x, myTouches[0].position.y);
+            }
+        }
         width = Screen.width - 100;
         imagepos = new Vector2(width, 60);
         from = new Vector3(0, 1, 0);
         dircheck = new Vector3(1, 0, 0);
-        mousepos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        //mousepos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         targetdir = mousepos - imagepos;
         to = new Vector3(targetdir.x, targetdir.y, 0);
         angles[0] = Vector3.Angle(from, to);
@@ -119,6 +106,34 @@ public class wallscriptlevel2 : MonoBehaviour
         return angles;
     }
     public void ButtonClicked() {
-        isPressed = true;
+        if ( !sceneloaded && timetravel)
+        {
+            if (wallindex != data.playerData.Wallloc)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    data.playerData.lifeloss -= data.playerData.deatharray[wallindex, i];
+                }
+                data.playerData.lifeloss += data.playerData.wallloss;
+                data.playerData.LifeRemaining -= data.playerData.lifeloss;
+            }
+            else
+            {
+                data.playerData.LifeRemaining -= data.playerData.lifeloss;
+            }
+            data.playerData.Resume = true;
+            data.levelData.levelend = false;
+            SceneManager.LoadScene("Level2");
+            sceneloaded = true;
+            isPressed = false;
+        }
+        else if ( !sceneloaded && !timetravel)
+        {
+            data.playerData.Resume = true;
+            data.levelData.levelend = false;
+            SceneManager.LoadScene("Level2");
+            sceneloaded = true;
+            isPressed = false;
+        }
     }
 }

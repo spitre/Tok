@@ -54,7 +54,8 @@ public class RandomWalk : MonoBehaviour {
             GetComponent<Level1Spawn>().data.levelData.levelend = false;
             GetComponent<Level1Spawn>().Block.GetComponent<Wallscript>().sceneloaded = false;
             lifeloss = 0;
-            GetComponent<Level1Spawn>().data.levelData.timetravel = true;
+            // GetComponent<Level1Spawn>().data.levelData.timetravel = true;
+            GetComponent<Level1Spawn>().Block.GetComponent<Wallscript>().timetravel = true;
             Timeclick = false;
             SceneManager.LoadScene("Placement1");
         }

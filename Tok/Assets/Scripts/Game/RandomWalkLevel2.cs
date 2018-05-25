@@ -8,6 +8,7 @@ public class RandomWalkLevel2 : MonoBehaviour
     public int[] Shuffled = new int[100];
     int currentpos = 99;
     int nextpos;
+    public bool Timeclick = false;
 
     public int shot;
     int swap;
@@ -44,7 +45,7 @@ public class RandomWalkLevel2 : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Timeclick)
         {
             GetComponent<Level2Spawn>().data.playerData.lifeloss = lifeloss;
             GetComponent<Level2Spawn>().data.playerData.Score = GetComponent<Level2Spawn>().killcount;
@@ -55,8 +56,10 @@ public class RandomWalkLevel2 : MonoBehaviour
             GetComponent<Level2Spawn>().data.levelData.Shuffled = Shuffled;
             GetComponent<Level2Spawn>().data.levelData.levelend = false;
             GetComponent<Level2Spawn>().Block.GetComponent<wallscriptlevel2>().sceneloaded = false;
+            GetComponent<Level2Spawn>().Block.GetComponent<wallscriptlevel2>().timetravel = true;
             lifeloss = 0;
             GetComponent<Level2Spawn>().data.levelData.timetravel = true;
+            Timeclick = false;
 
             SceneManager.LoadScene("Placement2");
         }
@@ -95,5 +98,9 @@ public class RandomWalkLevel2 : MonoBehaviour
         {
             calculated = false;
         }
+    }
+    public void ButtonPressed()
+    {
+        Timeclick = true;
     }
 }

@@ -10,14 +10,7 @@ public class PlayerShotLevel2 : MonoBehaviour
     public bool wall = false;
     public bool hasspawned = false;
     // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Fire();
-        }
-    }
-    void Fire()
+    public void Fire()
     {
         Transform bulletSpawn = transform.GetChild(3);
 

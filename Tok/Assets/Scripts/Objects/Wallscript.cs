@@ -6,12 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class Wallscript : MonoBehaviour {
     public  bool sceneloaded = false;
+    public static float cutoff;
     DataController data;
     public GameObject player;
     //Movement Initializations
     public static int width;
     public int wallindex;
-    public bool timetravel;
+    public bool timetravel = false;
     float Compare;
     float[] angles = new float[2];
     Vector2 imagepos;
@@ -26,7 +27,7 @@ public class Wallscript : MonoBehaviour {
     void Start () {
         DontDestroyOnLoad(gameObject);
         data = FindObjectOfType<DataController>();
-        timetravel = data.levelData.timetravel;
+       //timetravel = data.levelData.timetravel;
 	}
 	
 	 void Update () {
@@ -34,10 +35,13 @@ public class Wallscript : MonoBehaviour {
             {
                 Movement();
             }
-            else if (data.levelData.levelend||data.playerData.isDead||Input.GetKeyDown(KeyCode.Escape)|| player.GetComponent<RandomWalk>().Timeclick)
-            {
-                Destroy(gameObject);
-            }
+    }
+    private void LateUpdate()
+    {
+        if (data.levelData.levelend || data.playerData.isDead || Input.GetKeyDown(KeyCode.Escape)||timetravel)
+        {
+            Destroy(gameObject);
+        }
     }
     void Movement()
     {
@@ -76,18 +80,31 @@ public class Wallscript : MonoBehaviour {
     
     public float[] GetAngles()
     {
+        Touch[] myTouches = Input.touches;
+        if (Input.touchCount > 0)
+        {
+            cutoff = Screen.width * .25f;
+            if (myTouches[0].position.x < cutoff)
+            {
+                mousepos = new Vector2(myTouches[1].position.x, myTouches[1].position.y);
+            }
+            else
+            {
+                mousepos = new Vector2(myTouches[0].position.x, myTouches[0].position.y);
+            }
+        }
         width = Screen.width -100;
         imagepos = new Vector2(width, 60);
         from = new Vector3(0, 1, 0);
         dircheck = new Vector3(1, 0, 0);
-        mousepos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        //mousepos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         targetdir = mousepos - imagepos;
         to = new Vector3(targetdir.x, targetdir.y, 0);
         angles[0] = Vector3.Angle(from, to);
         angles[1] = Vector3.Angle(dircheck, to);
         return angles;
     }
-    public void ButtonPressed()
+    public void RedButtonPressed()
     {
         if (!sceneloaded && timetravel)
         {

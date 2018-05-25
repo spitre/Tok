@@ -92,6 +92,10 @@ public class Level2Spawn : MonoBehaviour
         else if (!data.playerData.Resume && !deducted)
         {
             killcount = 20;
+            data.levelData.levelend = false;
+            data.playerData.Level = 2;
+            data.playerData.lifeloss = 0;
+            data.playerData.wallloss = 0;
             GetComponent<playerhealth>().playerhealthnum = 10;
         }
         if (levelend)
